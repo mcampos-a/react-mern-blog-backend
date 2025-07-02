@@ -13,10 +13,22 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(error => console.log(error.message))
 
 const postSchema = new mongoose.Schema({
-    title: String,
-    author: String,
-    image: String,
-    content: String
+    title: {
+        type: String,
+        required: true,
+    },
+    author: {
+        type: String,
+        required: true,
+    },
+    image: {
+        type: String,
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    }
 })
 
 const Post = mongoose.model('Post', postSchema)
