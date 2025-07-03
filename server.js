@@ -12,24 +12,24 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to DB!'))
     .catch(error => console.log(error.message))
 
-const postSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-    },
-    author: {
-        type: String,
-        required: true,
-    },
-    image: {
-        type: String,
-        required: true,
-    },
-    content: {
-        type: String,
-        required: true,
-    }
-})
+    const postSchema = new mongoose.Schema({
+        title: {
+            type: String,
+            required: true,
+        },
+        author: {
+            type: String,
+            required: true,
+        },
+        image: {
+            type: String,
+            required: true,
+        },
+        content: {
+            type: String,
+            required: true,
+        }
+    })
 
 const Post = mongoose.model('Post', postSchema)
 
@@ -44,15 +44,16 @@ app.get('/posts/:id', async (req,res) =>{
     res.send(post)
 })
 //create new post
-app.post('/post', async(req, res) => {
+app.post('/posts', async (req, res) => {
     const newPost = new Post(req.body)
     const savePost = await newPost.save()
     res.send(savePost)
+
 })
 //delete post
 app.delete('/posts/:id', async (req,res) =>{
     await Post.findByIdAndDelete(req.params.id)
-    res.status(100).send('Post deleted')
+    res.status(200).send('Post deleted')
 })
 
 app.listen(4343, () => console.log('Server started on post 4343'))
